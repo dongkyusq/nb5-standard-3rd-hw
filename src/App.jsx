@@ -16,19 +16,35 @@ function App() {
     { name: "Linda", age: 27, grade: "F" },
   ];
 
-  const [minAge, setMinAge] = useState(18);
+  const [minAge, setMinAge] = useState("");
 
+  const onChange = (event) => setMinAge(event.target.value);
   // TODO: filter를 사용하여 minAge 이상의 학생들만 선택하세요.
-  // const filteredStudents = ...;
+  const filteredStudents = students.filter(
+    (students) => students.age >= minAge
+  );
+
+  console.log(filteredStudents);
 
   return (
     <div>
       <h1>학생 목록</h1>
       다음 나이 이상의 학생목록만 출력해요 :{" "}
       {/* TODO: input에 입력된 값(숫자) 이상의 나이를 가진 학생들만 출력하세요. */}
-      <input type="number" /> 살 이상
+      <input
+        value={minAge}
+        type="number"
+        onChange={onChange}
+        placeholder="입력해주세요"
+      />{" "}
+      살 이상
       <ul>
-        {/* TODO: map을 사용하여 필터링된 학생들의 정보를 표시하세요. 동명이인은 없다고 가정합니다. ex) 홍길동 - Age: 24, Grade: A */}
+        {/* TODO: map을 사용하여 필터링된 학생들의 정보를 표시하세요. ex) 홍길동 - Age: 24, Grade: A */}
+        {filteredStudents.map((students, index) => (
+          <li key={index}>
+            {students.name} - Age: {students.age}, Grade: {students.grade}
+          </li>
+        ))}
       </ul>
     </div>
   );
